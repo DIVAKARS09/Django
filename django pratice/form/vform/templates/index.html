@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fill the Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;   
+            align-items: center;       
+            height: 700px;
+            font-family: Arial, sans-serif;
+            background: #878585;
+        }
+
+        .vform {
+            background: #fe8080;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 5px 9px 50px rgba(82, 9, 218, 0.1);
+            width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 150px 1fr; 
+            grid-gap: 15px 10px;
+            align-items: center;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea{
+            width: 100%;
+            padding: 8px;
+            border: px solid #110101;
+            border-radius: 5px;
+        }
+
+        .full-width {
+            grid-column: 1 / span 2;
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            padding: none;
+            background: #4CAF50;
+            color: white;
+            font-size: 15px;
+            border-radius: 10px;
+        }
+        
+        button:hover {
+            background: #3e403e;
+        }
+        .gender{
+            display: grid;
+            grid-template-columns: auto auto; 
+            align-items: center;
+            gap: 10px;
+            padding-right: 250px;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="vform">
+        <h2>Fill the Form</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <label>Name:</label>
+            <input type="text" name="name" required maxlength="100" required>
+          
+            <label>Age:</label>
+            <input type="number" name="age" required pattern="[0-9]+" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="3" minlength="1">
+
+            <label>Mobile Number:</label>
+            <input type="text" name="number" maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
+            
+            <label>Date of Birth:</label>
+            <input type="date" name="dob" required>
+
+            <label >Email:</label>
+            <input type="email" name="email" required>
+            
+            <label>Address:</label>
+            <textarea name="address" rows="3" cols="30" required></textarea>
+
+            <label>Gender:</label>
+            <div class="gender">
+            <input type="radio" name="gender" value="male" required> Male
+            <input type="radio" name="gender" value="female" required> Female
+
+        </div>
+            
+            <div class="full-width">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
