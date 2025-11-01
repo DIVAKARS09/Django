@@ -1,0 +1,1 @@
+- [x] Edit form/vform/templates/index.html to change the age input to type="text" with pattern="[0-9]+" and oninput to restrict to digits only.
