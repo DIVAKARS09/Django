@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to ASCII Converter</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #66a6ff;
+            padding-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 2px solid #66a6ff;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px #007bff;
+        }
+
+        button {
+            background-color: #66a6ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007bff;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th {
+            background-color: #66a6ff;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text to ASCII Converter</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="text_input" placeholder="Enter text here...">{{ input_text }}</textarea><br>
+            <button type="submit">Convert</button>
+        </form>
+
+        {% if ascii_results %}
+            <h2>Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Character</th>
+                        <th>ASCII Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in ascii_results %}
+                        <tr>
+                            <td>{{ item.char }}</td>
+                            <td>{{ item.value }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>

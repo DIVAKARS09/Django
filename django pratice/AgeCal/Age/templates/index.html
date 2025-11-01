@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Age Calculator (AM/PM)</title>
+    <style>
+        body { font-family: Arial; background: #eef2f3; text-align: center; padding: 30px; }
+        .container { background: #fff; padding: 25px; border-radius: 12px; width: 500px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        .inline-field { display: inline-block; margin: 5px; }
+        input, select { padding: 6px; border-radius: 6px; border: 1px solid #ccc; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 20px; background: #f7f9fa; padding: 15px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Age Calculator</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <div>
+                <label>From:</label><br>
+                <div class="inline-field">
+                    <input type="date" name="from_date" value="{{ from_date }}" required>
+                </div>
+                <div class="inline-field">
+                    <input type="time" name="from_time" value="{{ from_time }}" required>
+                </div>
+                <div class="inline-field">
+                    <select name="from_period">
+                        <option value="AM" {% if from_period == "AM" %}selected{% endif %}>AM</option>
+                        <option value="PM" {% if from_period == "PM" %}selected{% endif %}>PM</option>
+                    </select>
+                </div>
+            </div><br>
+
+            <div>
+                <label>To:</label><br>
+                <div class="inline-field">
+                    <input type="date" name="to_date" value="{{ to_date }}" required>
+                </div>
+                <div class="inline-field">
+                    <input type="time" name="to_time" value="{{ to_time }}" required>
+                </div>
+                <div class="inline-field">
+                    <select name="to_period">
+                        <option value="AM" {% if to_period == "AM" %}selected{% endif %}>AM</option>
+                        <option value="PM" {% if to_period == "PM" %}selected{% endif %}>PM</option>
+                    </select>
+                </div>
+            </div><br>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h3>Age Difference:</h3>
+                <p><b>{{ result.years }}</b> Years, <b>{{ result.months }}</b> Months, <b>{{ result.days }}</b> Days</p>
+                <p><b>{{ result.hours }}</b> Hours, <b>{{ result.minutes }}</b> Minutes</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
