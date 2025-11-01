@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'home.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f3f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar {
+    width: 95%;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .navbar h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-logout {
+    text-decoration: none;
+    color: white;
+    background-color: #dc3545;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-logout:hover {
+    background-color: #b02a37;
+    transform: scale(1.05);
+  }
+
+  .container {
+    margin-top: 80px;
+    text-align: center;
+  }
+
+  h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: #555;
+    margin-bottom: 40px;
+    font-size: 16px;
+  }
+
+  .card-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 40px 30px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    min-width: 220px;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card i {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #007bff;
+    transition: color 0.3s ease;
+  }
+
+  .card:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-5px);
+  }
+
+  .card:hover i {
+    color: white;
+  }
+
+  .card span {
+    text-align: center;
+  }
+
+  .card.admin {
+    border: 2px solid #ffc107;
+  }
+
+  .card.admin:hover {
+    background-color: #ffc107;
+    color: #000;
+  }
+
+  .card.admin:hover i {
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      width: 80%;
+      padding: 20px;
+    }
+
+    .navbar {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+  }
+
+  .popup-message {
+    min-width: 240px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInSlide 0.5s forwards, fadeOut 3.5s 2.5s forwards;
+  }
+
+  .popup-message.success { background-color: #28a745; }
+  .popup-message.error { background-color: #dc3545; }
+  .popup-message.warning { background-color: #ffc107; color: #000; }
+  .popup-message.info { background-color: #007bff; }
+
+  @keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-20px); }
+  }
+</style>
+
+<!-- ✅ Navbar -->
+<div class="navbar">
+  <h1>Welcome, {{ username }} 👋</h1>
+  <div class="nav-buttons">
+    <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+  </div>
+</div>
+
+<!-- ✅ Main Container -->
+<div class="container">
+  <h2>Dashboard</h2>
+  <p class="subtitle">Manage your system efficiently using the sections below</p>
+
+<div class="card-container">
+  {% if not user.is_customized_by_admin or user.can_access_category_page %}
+  <a href="{% url 'category_view' %}" class="card">
+    <i class="fa fa-folder-open"></i>
+    <span>Manage Categories</span>
+  </a>
+  {% endif %}
+
+  {% if not user.is_customized_by_admin or user.can_access_item_page %}
+  <a href="{% url 'item_list' %}" class="card">
+    <i class="fa fa-box"></i>
+    <span>Manage Items</span>
+  </a>
+  {% endif %}
+
+  {% if not user.is_customized_by_admin or user.can_access_sales_page %}
+  <a href="{% url 'sales_list' %}" class="card">
+    <i class="fa fa-chart-line"></i>
+    <span>Manage Sales</span>
+  </a>
+  {% endif %}
+
+  {% if is_admin %}
+  <a href="{% url 'admin_dashboard' %}" class="card admin">
+    <i class="fa fa-tools"></i>
+    <span>Admin Dashboard</span>
+  </a>
+  <a href="{% url 'user_list' %}" class="card admin">
+    <i class="fa fa-user-shield"></i>
+    <span>Manage User Rights</span>
+  </a>
+  {% endif %}
+</div>
+
+</div>
+
+<!-- ✅ Popup Messages -->
+{% if messages %}
+<div class="popup-container">
+  {% for message in messages %}
+    <div class="popup-message {{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+</body>
+</html>

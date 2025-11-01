@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Category</title>
+    {%load static%}
+    <!-- <link rel="stylesheet" href="{% static 'add_category.css' %}"> -->
+</head>
+<body>
+
+    <style>
+        body {
+  font-family: "Poppins", sans-serif;
+  /* background: linear-gradient(135deg, #876cfd, #453a94); */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.form-container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.form-container h2 {
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+  width: 90%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+  border-color: #453a94;
+  box-shadow: 0 0 5px rgba(69, 58, 148, 0.4);
+}
+
+.form-container button {
+  width: 95%;
+  padding: 12px;
+  background: #453a94;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-container button:hover {
+  background: #372f7d;
+}
+
+    </style>
+<div class="form-container">
+    <h2>Add Category</h2>
+    <form method="POST">
+    {% csrf_token %}
+    <label>Category Name:</label>
+    {{ form.name }}
+
+    <label>Description:</label>
+    {{ form.description }}
+
+    <label for="status">Status:</label>
+<select name="status" required>
+    <option value="1" {% if form.instance.status == 1 %}selected{% endif %}>Active</option>
+    <option value="0" {% if form.instance.status == 0 %}selected{% endif %}>Inactive</option>
+</select>
+
+
+    <button type="submit">{% if edit_mode %}Update{% else %}Add{% endif %} Category</button>
+</form>
+
+</div>
+
+{% if messages %}
+<div class="popup-container">
+    {% for message in messages %}
+        <div class="popup-message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+</body>
+</html>

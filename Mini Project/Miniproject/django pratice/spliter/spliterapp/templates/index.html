@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Splitter</title>
+    <style>
+        body 
+        { font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f0f4f7; 
+        }
+        .container 
+        { max-width: 700px; 
+            margin: 40px auto; 
+            background: rgb(253, 247, 247); 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+        }
+        h1 
+        { 
+            color: #2c3e50; 
+            text-align: center; 
+        }
+        textarea 
+        { width: 98%; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+        }
+        button 
+        { background-color: #3498db; 
+            color: white; 
+            padding: 12px 20px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer; 
+            display: block; 
+            width: 100%; 
+            margin-top: 15px;
+        }
+        table 
+        { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 25px; 
+        }
+        th, td 
+        { 
+            border: 1px solid #e0e0e0; 
+            padding: 12px; 
+            text-align: left; 
+        }
+        th 
+        { background-color: #ecf0f1; 
+            color: #2c3e50; 
+            width: 40%; 
+        }
+        .result-box 
+        { margin-top: 30px; 
+            border-top: 2px solid #3498db; 
+            padding-top: 20px; 
+        }
+        .summary-item 
+        { 
+            display: inline-block; 
+            margin-right: 20px; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Splitter</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Split Text</button>
+    </form>
+    
+    {% if results %}
+        <div class="result-box">
+            <h2>After Split</h2>
+            <p><strong>Input:</strong> 
+                <span style="font-style: italic;">"{{ results.input_text }}"</span>
+            </p>
+            <p>
+                <span class="summary-item">Total Characters: {{ results.total_length }}</span>
+                <span class="summary-item">Total Letters: {{ results.total_alphabets }}</span>
+                <span class="summary-item">Total Numbers: {{ results.total_numbers }}</span>
+            </p>
+
+            <h3>Categorized Characters</h3>
+            <table>
+                <tbody>
+                    {% for key, value in results.categories.items %}
+                        <tr>
+                            <th>{{ key }} (Count: {{ value|length }})</th>
+                            <td>
+                                {% if value %}
+                                    {{ value }}
+                                {% else %}
+                                    <span style="color: #313131;">None found</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

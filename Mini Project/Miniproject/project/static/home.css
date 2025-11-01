@@ -1,0 +1,77 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #bfbfc2, #764ba2);
+  margin: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.home-container {
+  padding: 60px 20px;
+}
+
+.home-container h1 {
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.card-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  color: #333;
+  width: 220px;
+  padding: 40px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: #1e90ff;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+.popup-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.popup-message {
+    min-width: 240px;
+    margin-bottom: 10px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInSlide 0.5s forwards, fadeOut 3.5s 2.5s forwards;
+}
+
+/* Message types */
+.popup-message.success { background-color: #28a745; }
+.popup-message.error { background-color: #dc3545; }
+.popup-message.warning { background-color: #ffc107; color: #000; }
+.popup-message.info { background-color: #007bff; }
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-20px); }
+}

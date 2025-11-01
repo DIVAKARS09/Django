@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="{% url 'home_view' %}" class="nav-logo">MyShop</a>
+    </div>
+    <div class="nav-right">
+        <a href="{% url 'home_view' %}">Home</a>
+        <a href="{% url 'category_view' %}">Categories</a>
+        <a href="{% url 'item_list' %}">Items</a>
+        <a href="{% url 'sales_list' %}">Sales</a>
+        <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+    </div>
+</nav>
+
+<style>
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.nav-logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-right a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-right a:hover {
+    color: #ffc107;
+}
+
+.btn-logout {
+    text-decoration: none;
+    color: white;
+    background-color: #dc3545;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-logout:hover {
+    background-color: #b02a37;
+    transform: scale(1.05);
+}
+</style>
+
+
+
+</body>
+</html>
