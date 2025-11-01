@@ -1,0 +1,197 @@
+/* ------------------------
+   General Page Styles
+------------------------- */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f2f4f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------------
+   Container and Header
+------------------------- */
+.container {
+    width: 90%;
+    max-width: 950px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 25px 30px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+/* ------------------------
+   Top Buttons (Back + Add)
+------------------------- */
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-back {
+    background-color: #6c757d;
+    color: #fff;
+}
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+.btn-add {
+    background-color: #28a745;
+    color: #fff;
+}
+.btn-add:hover {
+    background-color: #218838;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 7px 14px;
+    margin-right: 8px;
+}
+.btn-edit:hover {
+    background-color: #0069d9;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 7px 14px;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* ------------------------
+   Table Styles
+------------------------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Status Text Styling */
+td span {
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+td span[style*="green"] {
+    background: #e6ffed;
+    color: #1e7e34;
+}
+td span[style*="red"] {
+    background: #ffe6e6;
+    color: #c82333;
+}
+
+/* ------------------------
+   Empty Table Message
+------------------------- */
+td[colspan] {
+    font-style: italic;
+}
+
+/* ------------------------
+   Popup Notification Styling
+------------------------- */
+.popup-container {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+}
+
+.popup-message {
+    min-width: 240px;
+    margin-bottom: 10px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInSlide 0.5s forwards, fadeOut 3.5s 2.5s forwards;
+}
+
+/* Message colors */
+.popup-message.success { background-color: #28a745; }
+.popup-message.error { background-color: #dc3545; }
+.popup-message.warning { background-color: #ffc107; color: #000; }
+.popup-message.info { background-color: #007bff; }
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+/* ------------------------
+   Responsive
+------------------------- */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+    table {
+        font-size: 14px;
+    }
+    .btn {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

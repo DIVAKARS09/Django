@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: bisque;
+
+}
+
+.dashboard {
+    margin-top: 10%;
+    display: flex;
+    gap: 100px;
+}
+
+.card {
+    flex: 1;
+    display: flex;
+    height: 300px;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none; /* remove underline */
+    border-radius: 50px;
+}
+
+.card:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* background-color: #d0e4f8; */
+    color: rgb(5, 61, 245);
+    /* font-size: 2rem; */
+    /* font-weight: bold; */
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+}
+
+/* logout button */
+.logout-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 40px;
+    color: #f44336;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.logout-icon:hover {
+    color: #d32f2f;
+}

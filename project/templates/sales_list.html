@@ -1,0 +1,466 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Sales</title>
+    <link rel="stylesheet" href="{% static 'sales.css' %}">
+</head>
+<body>
+
+<style>
+        /* ===========================
+   Global Styling
+=========================== */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f2f4f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===========================
+   Main Container
+=========================== */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    background: #ffffff;
+    margin-left: 250px;
+    margin-top: 60px;
+    margin-bottom: 50px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* ===========================
+   Top Buttons
+=========================== */
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-back {
+    background-color: #6c757d;
+    color: #fff;
+}
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+.btn-add {
+    background-color: #28a745;
+    color: #fff;
+}
+.btn-add:hover {
+    background-color: #218838;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 7px 14px;
+    margin-right: 8px;
+}
+.btn-edit:hover {
+    background-color: #0069d9;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 7px 14px;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* ===========================
+   Table Styling
+=========================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+tr:hover {
+    background-color: #f5f9ff;
+    transition: 0.2s ease;
+}
+
+/* ===========================
+   Buttons inside table
+=========================== */
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-edit {
+    background-color: #28a745;
+}
+
+.btn-edit:hover {
+    background-color: #1e7e34;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #b02a37;
+}
+
+/* ===========================
+   Popup Messages
+=========================== */
+.popup-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.popup-message {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 18px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    animation: popupFade 0.6s forwards, hidePopup 4s forwards;
+    font-weight: 500;
+}
+
+.popup-message.success {
+    background-color: #28a745;
+}
+
+.popup-message.error {
+    background-color: #dc3545;
+}
+
+.popup-message.warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+@keyframes popupFade {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hidePopup {
+    0%, 90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-15px); }
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .top-buttons a {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+}
+
+/* ===========================
+   Navbar Styling
+=========================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.nav-logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-right a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-right a:hover {
+    color: #ffc107;
+}
+
+.btn-logout {
+    text-decoration: none;
+    color: white;
+    background-color: #dc3545;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-logout:hover {
+    background-color: #b02a37;
+    transform: scale(1.05);
+}
+
+
+/* ===========================
+   Dropdown Styling
+=========================== */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background-color: #17a2b8;
+    color: white;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    z-index: 1;
+    margin-top: 5px;
+}
+
+.dropdown-menu button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+/* Show/hide checkbox column */
+.select-column {
+    display: none;
+}
+.select-column.visible {
+    display: table-cell;
+}
+#export-actions {
+    display: none;
+    margin-bottom: 20px;
+}
+</style>
+
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="{% url 'home_view' %}" class="nav-logo">MyShop</a>
+  </div>
+  <div class="nav-right">
+    <a href="{% url 'home_view' %}">Home</a>
+    <a href="{% url 'category_view' %}">Categories</a>
+    <a href="{% url 'item_list' %}">Items</a>
+    <a href="{% url 'sales_list' %}">Sales</a>
+    <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+  </div>
+</nav>
+
+{% if messages %}
+<div class="popup-container">
+    {% for message in messages %}
+        <div class="popup-message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="container">
+    <h1 style="text-align: center;">Sales List</h1>
+
+    <div class="top-buttons">
+    <a href="{% url 'home_view' %}" class="btn btn-back">⬅ Back</a>
+    {% if can_add %}
+  <a href="{% url 'add_sales' %}" class="btn btn-add">➕ Add Sales</a>
+{% endif %}
+
+</div>
+
+<form method="POST" action="{% url 'export_sales' %}" id="export-form">
+  {% csrf_token %}
+
+
+  <!-- ✅ Single Export Button with Dropdown -->
+ <div class="dropdown" style="margin-bottom: 20px;">
+  <button type="button" class="btn btn-add dropdown-toggle" onclick="toggleExportUI()">📤 Export ▼</button>
+  <div class="dropdown-menu" id="export-options" style="display: none;">
+    <button type="submit" name="export_type" value="pdf">📄 Export as PDF</button>
+    <button type="submit" name="export_type" value="excel">📊 Export as Excel</button>
+  </div>
+</div>
+
+  <!-- ✅ Sales Table -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Bill No</th>
+      <th>Customer Name</th>
+      <th>Item</th>
+      <th>Category</th>
+      <th>Qty</th>
+      <th>Rate</th>
+      <th>Discount (%)</th>
+      <th>Total</th>
+      <th>Date</th>
+      <th>Payment</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sale in sales %}
+      {% if sale.items.all %}
+        {% for item in sale.items.all %}
+          <tr>
+            <td>{{ sale.bill_number }}</td>
+            <td>{{ sale.customer_name }}</td>
+            <td>{{ item.item.name }}</td>
+            <td>{{ item.item.category.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>₹{{ item.rate }}</td>
+            <td>{{ item.discount }}</td>
+            <td>₹{{ item.total_price }}</td>
+            <td>{{ sale.date }}</td>
+            <td>{{ sale.payment_mode }}</td>
+            <td>
+              <a href="{% url 'edit_sales' sale.id %}" class="btn btn-edit">✏️ Edit</a>
+              <a href="{% url 'delete_sales' sale.id %}" class="btn btn-delete">🗑 Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td>{{ sale.bill_number }}</td>
+          <td>{{ sale.customer_name }}</td>
+          <td colspan="7" style="text-align: center;">No items added</td>
+          <td>{{ sale.date }}</td>
+          <td>{{ sale.payment_mode }}</td>
+          <td>
+            <a href="{% url 'edit_sales' sale.id %}" class="btn btn-edit">✏️ Edit</a>
+            <a href="{% url 'delete_sales' sale.id %}" class="btn btn-delete">🗑 Delete</a>
+          </td>
+        </tr>
+      {% endif %}
+    {% empty %}
+      <tr><td colspan="12">No sales found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</form>
+
+
+<script>
+function toggleExportUI() {
+  const checkboxes = document.querySelectorAll('.select-column');
+  const exportMenu = document.getElementById('export-options');
+  const isVisible = checkboxes[0].style.display === 'table-cell';
+
+  checkboxes.forEach(cb => {
+    cb.style.display = isVisible ? 'none' : 'table-cell';
+  });
+
+  exportMenu.style.display = isVisible ? 'none' : 'block';
+}
+
+document.getElementById('select-all').addEventListener('change', function() {
+  const boxes = document.querySelectorAll('input[name="selected_sales"]');
+  boxes.forEach(box => box.checked = this.checked);
+});
+</script>
+
+
+
+</body>
+</html>
